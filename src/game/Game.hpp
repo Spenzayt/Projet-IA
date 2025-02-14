@@ -7,6 +7,9 @@
 #include "../map/Grid.hpp"
 #include <vector>
 
+using namespace std;
+using namespace sf;
+
 class Game {
 public:
     Game();
@@ -15,9 +18,9 @@ public:
     void run();
 
 private:
-    sf::RenderWindow window;
+    RenderWindow window;
     Player player;
-    std::vector<Enemy> enemies;
+    vector<Enemy> enemies;
     Grid grid;
 
     void processEvents();

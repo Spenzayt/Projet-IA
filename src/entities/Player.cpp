@@ -1,17 +1,17 @@
 #include "Player.hpp"
 #include <SFML/Window/Keyboard.hpp>
 
-Player::Player(float x, float y) : Entity(x, y, sf::Color::Blue) {}
+Player::Player(float x, float y) : Entity(x, y, Color::Blue) {}
 
 void Player::update(float deltaTime, Grid& grid) {
-    sf::Vector2f movement(0.f, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) movement.y -= SPEED * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) movement.y += SPEED * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) movement.x -= SPEED * deltaTime;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) movement.x += SPEED * deltaTime;
+    Vector2f movement(0.f, 0.f);
+    if (Keyboard::isKeyPressed(Keyboard::Z)) movement.y -= SPEED * deltaTime;
+    if (Keyboard::isKeyPressed(Keyboard::S)) movement.y += SPEED * deltaTime;
+    if (Keyboard::isKeyPressed(Keyboard::Q)) movement.x -= SPEED * deltaTime;
+    if (Keyboard::isKeyPressed(Keyboard::D)) movement.x += SPEED * deltaTime;
 
-    sf::Vector2f newPosition = shape.getPosition() + movement;
-    sf::FloatRect newBounds(newPosition, shape.getSize());
+    Vector2f newPosition = shape.getPosition() + movement;
+    FloatRect newBounds(newPosition, shape.getSize());
 
     auto isWalkable = [&](float x, float y) {
         int gridX = static_cast<int>(x / CELL_SIZE);
