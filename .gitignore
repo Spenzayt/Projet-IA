@@ -1,0 +1,30 @@
+# Fichiers de build générés par Visual Studio
+.vs/
+.vscode/
+.idea/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Dossiers de build pour différents types de configuration
+Debug/
+Release/
+
+# Dossiers binaires (avec une exception pour SFML/bin)
+bin/
+!external/SFML/bin/
+
+# Fichiers générés pour les configurations CMake
+CMakeLists.txt.user
+CMakeCache.txt
+
+# Fichiers de dépendances
+*.db
+*.opendb
+*.cache
+*.log
+
+# Dossiers temporaires
+tmp/
+obj/
