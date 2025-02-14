@@ -13,7 +13,6 @@ void Player::update(float deltaTime, Grid& grid) {
     sf::Vector2f newPosition = shape.getPosition() + movement;
     sf::FloatRect newBounds(newPosition, shape.getSize());
 
-    // Vérifier les quatre coins du joueur
     auto isWalkable = [&](float x, float y) {
         int gridX = static_cast<int>(x / CELL_SIZE);
         int gridY = static_cast<int>(y / CELL_SIZE);

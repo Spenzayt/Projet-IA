@@ -22,14 +22,16 @@
     <ClCompile Include="src\entities\Enemy.cpp" />
     <ClCompile Include="src\entities\Entity.cpp" />
     <ClCompile Include="src\entities\Player.cpp" />
+    <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\map\Grid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="src\entities\Enemy.hpp" />
     <ClInclude Include="src\entities\Entity.hpp" />
     <ClInclude Include="src\entities\Player.hpp" />
-    <ClInclude Include="src\map\Grid.hpp" />
+    <ClInclude Include="src\game\Game.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

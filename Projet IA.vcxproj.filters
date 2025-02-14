@@ -48,6 +48,9 @@
     <ClCompile Include="src\map\Grid.cpp">
       <Filter>Fichiers sources\map</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\Game.cpp">
+      <Filter>Fichiers sources\game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Enemy.hpp">
@@ -59,7 +62,10 @@
     <ClInclude Include="src\entities\Player.hpp">
       <Filter>Fichiers d%27en-tête\entities</Filter>
     </ClInclude>
-    <ClInclude Include="src\map\Grid.hpp">
+    <ClInclude Include="Game.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\Game.hpp">
       <Filter>Fichiers d%27en-tête\map</Filter>
     </ClInclude>
   </ItemGroup>
