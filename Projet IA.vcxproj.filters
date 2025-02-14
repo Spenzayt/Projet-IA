@@ -13,10 +13,54 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Fichiers sources\game">
+      <UniqueIdentifier>{0dfc7e3c-2d0d-498c-9d62-73f286bb7b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\entities">
+      <UniqueIdentifier>{0bd4af1d-0ece-4779-816d-ea6bd337633e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\entities">
+      <UniqueIdentifier>{bc2163c0-71a7-4b81-a14c-9c8aa0b854a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\game">
+      <UniqueIdentifier>{91563a7f-d5f7-44c8-91f2-127dc8289f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\map">
+      <UniqueIdentifier>{f766be36-db3e-46eb-a932-10a996c0ef7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\map">
+      <UniqueIdentifier>{2616e80b-ba94-472a-a47f-25d6e11f6791}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\entities\Enemy.cpp">
+      <Filter>Fichiers sources\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Entity.cpp">
+      <Filter>Fichiers sources\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\entities\Player.cpp">
+      <Filter>Fichiers sources\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\map\Grid.cpp">
+      <Filter>Fichiers sources\map</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\entities\Enemy.hpp">
+      <Filter>Fichiers d%27en-tête\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Entity.hpp">
+      <Filter>Fichiers d%27en-tête\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\entities\Player.hpp">
+      <Filter>Fichiers d%27en-tête\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map\Grid.hpp">
+      <Filter>Fichiers d%27en-tête\map</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
