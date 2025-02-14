@@ -31,6 +31,12 @@
     <Filter Include="Fichiers d%27en-tête\map">
       <UniqueIdentifier>{2616e80b-ba94-472a-a47f-25d6e11f6791}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\ia">
+      <UniqueIdentifier>{c98749b5-c9a6-46ae-a5e3-3bdd0f0739a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\ia">
+      <UniqueIdentifier>{67f87762-118b-4532-9d75-f6393cb86f98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -51,6 +57,18 @@
     <ClCompile Include="src\game\Game.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
+    <ClCompile Include="src\ia\Action.cpp">
+      <Filter>Fichiers sources\ia</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ia\Goal.cpp">
+      <Filter>Fichiers sources\ia</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ia\Planner.cpp">
+      <Filter>Fichiers sources\ia</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ia\WorldState.cpp">
+      <Filter>Fichiers sources\ia</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Enemy.hpp">
@@ -67,6 +85,21 @@
     </ClInclude>
     <ClInclude Include="src\game\Game.hpp">
       <Filter>Fichiers d%27en-tête\map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\map\Grid.hpp">
+      <Filter>Fichiers d%27en-tête\map</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\Action.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\Goal.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\Planner.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\WorldState.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

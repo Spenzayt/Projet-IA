@@ -23,6 +23,10 @@
     <ClCompile Include="src\entities\Entity.cpp" />
     <ClCompile Include="src\entities\Player.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
+    <ClCompile Include="src\ia\Action.cpp" />
+    <ClCompile Include="src\ia\Goal.cpp" />
+    <ClCompile Include="src\ia\Planner.cpp" />
+    <ClCompile Include="src\ia\WorldState.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\map\Grid.cpp" />
   </ItemGroup>
@@ -32,6 +36,11 @@
     <ClInclude Include="src\entities\Entity.hpp" />
     <ClInclude Include="src\entities\Player.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
+    <ClInclude Include="src\ia\Action.hpp" />
+    <ClInclude Include="src\ia\Goal.hpp" />
+    <ClInclude Include="src\ia\Planner.hpp" />
+    <ClInclude Include="src\ia\WorldState.hpp" />
+    <ClInclude Include="src\map\Grid.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
