@@ -27,6 +27,5 @@ vector<std::unique_ptr<Action>> GOAPPlanner::Plan(const State& initialState, Goa
     default:
         break;
     }
-
     return plan;
 }
