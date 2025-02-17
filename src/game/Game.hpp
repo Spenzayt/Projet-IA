@@ -5,6 +5,7 @@
 #include "../entities/Player.hpp"
 #include "../entities/Enemy.hpp"
 #include "../map/Grid.hpp"
+#include "../game/State.hpp"
 #include <vector>
 
 using namespace std;

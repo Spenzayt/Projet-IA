@@ -26,3 +26,4 @@ void Player::update(float deltaTime, Grid& grid) {
         shape.move(movement);
     }
 }
+

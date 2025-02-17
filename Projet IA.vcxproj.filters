@@ -68,5 +68,13 @@
     <ClInclude Include="src\game\Game.hpp">
       <Filter>Fichiers d%27en-tête\map</Filter>
     </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Projet IA.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
