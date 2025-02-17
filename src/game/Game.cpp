@@ -1,16 +1,16 @@
 #include "Game.hpp"
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+const int WINDOW_WIDTH = 1920;
+const int WINDOW_HEIGHT = 1080;
 
-Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA"), player(200.f, 400.f)
+Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(200.f, 400.f, 10)
 {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
-    window.create(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen);
 
     grid.loadFromFile("src/map/map.txt");
-    enemies = { Enemy(100, 100), Enemy(700, 100) };
+    enemies.push_back(new Enemy(40*30, 40*10, 10));
+    enemies.push_back(new Enemy(40*7, 40 * 17, 100));
 }
 
 Game::~Game() {}
@@ -37,9 +37,9 @@ void Game::processEvents() {
 }
 
 void Game::update(float deltaTime) {
-    player.update(deltaTime, grid);
+    player.update(deltaTime, grid, enemies);
     for (auto& enemy : enemies) {
-        enemy.update(deltaTime, grid);
+        enemy->update(deltaTime, grid, { &player });
     }
 }
 
@@ -47,9 +47,11 @@ void Game::render() {
     window.clear();
 
     grid.draw(window);
-    window.draw(player.shape);
-    for (const auto& enemy : enemies)
-        window.draw(enemy.shape);
-
+    window.draw(player.sprite);
+    for (const auto& enemy : enemies) {
+        if (enemy->isAlive()) {
+            window.draw(enemy->sprite);
+        }
+    }
     window.display();
 }

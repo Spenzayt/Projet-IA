@@ -20,7 +20,7 @@ public:
 private:
     RenderWindow window;
     Player player;
-    vector<Enemy> enemies;
+    vector<Entity*> enemies;
     Grid grid;
 
     void processEvents();

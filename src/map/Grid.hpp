@@ -8,14 +8,14 @@
 using namespace std;
 using namespace sf;
 
-const int GRID_WIDTH = 20;
-const int GRID_HEIGHT = 15;
+const int GRID_WIDTH = 48;
+const int GRID_HEIGHT = 27;
 const int CELL_SIZE = 40;
 
 struct Cell {
     bool walkable;
     Vector2f position;
-    RectangleShape shape;
+    RectangleShape sprite;
 };
 
 class Grid {
@@ -28,4 +28,4 @@ private:
     vector<vector<Cell>> cells;
 };
 
-#endif      
+#endif

@@ -2,12 +2,23 @@
 #define ENEMY_HPP
 
 #include "Entity.hpp"
+#include "Player.hpp"
+#include "../ia/State.hpp"
 
 class Enemy : public Entity {
 public:
     static constexpr float SPEED = 100.0f;
-    Enemy(float x, float y);
-    void update(float deltaTime, Grid& grid) override;
+    static constexpr float DETECTION_RADIUS = 300.0f;
+    Enemy(float x, float y, int hp);
+    void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
+
+private:
+    void executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player);
+    void chase(Player& player, float deltaTime, Grid& grid);
+    void patrol();
+    void flee(Player& player, float deltaTime, Grid& grid);
+
+    State state;
 };
 
 #endif // ENEMY_HPP

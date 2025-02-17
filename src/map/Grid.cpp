@@ -8,10 +8,10 @@ Grid::Grid() {
     for (int y = 0; y < GRID_HEIGHT; ++y) {
         for (int x = 0; x < GRID_WIDTH; ++x) {
             cells[y][x].position = sf::Vector2f(x * CELL_SIZE, y * CELL_SIZE);
-            cells[y][x].shape.setPosition(cells[y][x].position);
-            cells[y][x].shape.setFillColor(sf::Color::Transparent);
-            cells[y][x].shape.setOutlineThickness(1);
-            cells[y][x].shape.setOutlineColor(sf::Color(50, 50, 50));
+            cells[y][x].sprite.setPosition(cells[y][x].position);
+            cells[y][x].sprite.setFillColor(sf::Color::Transparent);
+            cells[y][x].sprite.setOutlineThickness(1);
+            cells[y][x].sprite.setOutlineColor(sf::Color(50, 50, 50));
         }
     }
 }
@@ -29,7 +29,7 @@ void Grid::loadFromFile(const std::string& filename) {
         for (int x = 0; x < GRID_WIDTH && x < line.size(); ++x) {
             cells[y][x].walkable = (line[x] == '0');
             if (!cells[y][x].walkable) {
-                cells[y][x].shape.setFillColor(sf::Color::White);
+                cells[y][x].sprite.setFillColor(sf::Color::White);
             }
         }
     }
@@ -38,7 +38,7 @@ void Grid::loadFromFile(const std::string& filename) {
 void Grid::draw(sf::RenderWindow& window) {
     for (int y = 0; y < GRID_HEIGHT; ++y) {
         for (int x = 0; x < GRID_WIDTH; ++x) {
-            window.draw(cells[y][x].shape);
+            window.draw(cells[y][x].sprite);
         }
     }
 }
