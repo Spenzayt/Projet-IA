@@ -9,8 +9,8 @@ Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscree
     window.setVerticalSyncEnabled(true);
 
     grid.loadFromFile("src/map/map.txt");
-    enemies.push_back(new Enemy(40*30, 40*10, 10));
-    enemies.push_back(new Enemy(40*7, 40 * 17, 100));
+    enemies.push_back(new Enemy(40*41, 40*5, 10));
+    enemies.push_back(new Enemy(40*41, 40*21, 100));
 }
 
 Game::~Game() {}
