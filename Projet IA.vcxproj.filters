@@ -57,10 +57,10 @@
     <ClCompile Include="src\game\Game.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\ia\GOAPPlanner.cpp">
+    <ClCompile Include="src\ia\goap\GOAPAgent.cpp">
       <Filter>Fichiers sources\ia</Filter>
     </ClCompile>
-    <ClCompile Include="src\ia\GOAPAgent.cpp">
+    <ClCompile Include="src\ia\goap\GOAPPlanner.cpp">
       <Filter>Fichiers sources\ia</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,20 +77,20 @@
     <ClInclude Include="src\map\Grid.hpp">
       <Filter>Fichiers d%27en-tête\map</Filter>
     </ClInclude>
-    <ClInclude Include="src\ia\Action.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ia\GOAPPlanner.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ia\GOAPAgent.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ia\State.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\Game.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\goap\Action.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\goap\GOAPAgent.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\goap\State.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\goap\GOAPPlanner.hpp">
+      <Filter>Fichiers d%27en-tête\ia</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

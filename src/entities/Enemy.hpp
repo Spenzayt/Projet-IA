@@ -3,7 +3,7 @@
 
 #include "Entity.hpp"
 #include "Player.hpp"
-#include "../ia/State.hpp"
+#include "../ia/goap/State.hpp"
 
 class Enemy : public Entity {
 public:

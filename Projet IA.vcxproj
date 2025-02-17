@@ -23,8 +23,8 @@
     <ClCompile Include="src\entities\Entity.cpp" />
     <ClCompile Include="src\entities\Player.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
-    <ClCompile Include="src\ia\GOAPPlanner.cpp" />
-    <ClCompile Include="src\ia\GOAPAgent.cpp" />
+    <ClCompile Include="src\ia\goap\GOAPAgent.cpp" />
+    <ClCompile Include="src\ia\goap\GOAPPlanner.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\map\Grid.cpp" />
   </ItemGroup>
@@ -33,10 +33,10 @@
     <ClInclude Include="src\entities\Entity.hpp" />
     <ClInclude Include="src\entities\Player.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
-    <ClInclude Include="src\ia\Action.hpp" />
-    <ClInclude Include="src\ia\GOAPPlanner.hpp" />
-    <ClInclude Include="src\ia\State.hpp" />
-    <ClInclude Include="src\ia\GOAPAgent.hpp" />
+    <ClInclude Include="src\ia\goap\Action.hpp" />
+    <ClInclude Include="src\ia\goap\GOAPAgent.hpp" />
+    <ClInclude Include="src\ia\goap\GOAPPlanner.hpp" />
+    <ClInclude Include="src\ia\goap\State.hpp" />
     <ClInclude Include="src\map\Grid.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
