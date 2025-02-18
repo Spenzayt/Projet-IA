@@ -3,7 +3,7 @@
 const int WINDOW_WIDTH = 1920;
 const int WINDOW_HEIGHT = 1080;
 
-Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(200.f, 400.f, 10)
+Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(40*2, 40*24, 10)
 {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
@@ -50,7 +50,7 @@ void Game::render() {
     window.draw(player.sprite);
     for (const auto& enemy : enemies) {
         if (enemy->isAlive()) {
-            window.draw(enemy->sprite);
+            enemy->draw(window);
         }
     }
     window.display();

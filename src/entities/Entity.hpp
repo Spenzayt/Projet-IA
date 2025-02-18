@@ -15,6 +15,8 @@ public:
 
     Entity(float x, float y, Color color, int hp);
     virtual void update(float deltaTime, Grid& grid, vector<Entity*> neededEntities) = 0;
+    virtual void draw(RenderWindow& window) = 0;
+
     bool isAlive() const;
     void takeDamage(int damage);
     void centerOnCell(int gridX, int gridY);
