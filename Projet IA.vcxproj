@@ -31,8 +31,8 @@
     <ClInclude Include="src\entities\Enemy.hpp" />
     <ClInclude Include="src\entities\Entity.hpp" />
     <ClInclude Include="src\entities\Player.hpp" />
+    <ClInclude Include="src\entities\State.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
-    <ClInclude Include="State.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Projet IA.rc" />

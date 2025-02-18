@@ -68,8 +68,8 @@
     <ClInclude Include="src\game\Game.hpp">
       <Filter>Fichiers d%27en-tête\map</Filter>
     </ClInclude>
-    <ClInclude Include="State.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="src\entities\State.hpp">
+      <Filter>Fichiers d%27en-tête\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

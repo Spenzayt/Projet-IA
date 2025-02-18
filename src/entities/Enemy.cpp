@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Enemy::Enemy(float x, float y) : Entity(x, y, Color::Red), /*State(make_unique<IdleState>())*/ {}
+Enemy::Enemy(float x, float y) : Entity(x, y, Color::Red) /*State(make_unique<IdleState>())*/ {}
 
 void Enemy::setState(unique_ptr<State> newState) {
 	state = move(newState);

@@ -18,8 +18,10 @@ public:
     Enemy(float x, float y);
     void update(float deltaTime, Grid& grid) override;
 
-    void setState()
+    void setState(unique_ptr<State> newState);
+    void forceState(unique_ptr<State> newState);
 
+    string getCurrentState() const;
 };
 
 #endif // ENEMY_HPP
