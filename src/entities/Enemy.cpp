@@ -2,8 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-Enemy::Enemy(float x, float y, int hp, Player* _p) : p(_p), Entity(x, y, sf::Color::Red, hp) {
-
+Enemy::Enemy(float x, float y, int hp) : Entity(x, y, sf::Color::Red, hp) {
 
     currentState = PATROL;
 }
@@ -17,35 +16,39 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
             float distance = sqrt(pow(player->sprite.getPosition().x - sprite.getPosition().x, 2) +
                 pow(player->sprite.getPosition().y - sprite.getPosition().y, 2));
 
-            if (distance <= DETECTION_RADIUS) {
-                detectedPlayer = player;
-                state.SetSeenPlayer(true);
-                break;
-            }
+            //if (distance <= DETECTION_RADIUS) {
+            //    detectedPlayer = player;
+            //    state.SetSeenPlayer(true);
+            //    break;
+            //}
         }
+        FSM(*player, players, deltaTime, grid);
     }
 
-    if (health <= 20) {
-        state.SetLow(true);
-    }
-    else {
-        state.SetLow(false);
-    }
+    //if (health <= 20) {
+    //    state.SetLow(true);
+    //}
+    //else {
+    //    state.SetLow(false);
+    //}
 
-    if (state.IsLow() && detectedPlayer) {
-        executeGoapAction("Flee", deltaTime, grid, detectedPlayer);
-    }
-    else if (state.HasSeenPlayer() && detectedPlayer) {
-        executeGoapAction("Chase", deltaTime, grid, detectedPlayer);
-    }
-    else {
-        executeGoapAction("Patrol", deltaTime, grid, nullptr);
-    }
+    //if (state.IsLow() && detectedPlayer) {
+    //    executeGoapAction("Flee", deltaTime, grid, detectedPlayer);
+    //}
+    //else if (state.HasSeenPlayer() && detectedPlayer) {
+    //    executeGoapAction("Chase", deltaTime, grid, detectedPlayer);
+    //}
+    //else {
+    //    executeGoapAction("Patrol", deltaTime, grid, nullptr);
+    //}
 }
+
+
 
 void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid) {
 
-    Vector2f playerPos = p->getPosition();
+    /*Vector2f playerPos = p->getPosition();*/
+    detectPlayer(grid, _p);
 
     switch (currentState) {
     case PATROL:
@@ -60,10 +63,27 @@ void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid
         }*/
         break;
     case SEARCH:
+        cout << "change d'état" << endl;
         /*search(lastPlayerPosition, deltaTime);*/
             break;
     }
 
+}
+
+void Enemy::detectPlayer(Grid& grid, Player& player)
+{
+    Vector2i playerPos = Vector2i(player.sprite.getPosition().x / CELL_SIZE, player.sprite.getPosition().y / CELL_SIZE);
+    Vector2i enemyPos = Vector2i(sprite.getPosition().x / CELL_SIZE, sprite.getPosition().y / CELL_SIZE);
+
+    int distance = abs(enemyPos.x - playerPos.x) + abs(enemyPos.y - playerPos.y);
+
+    cout << "Distance : " << distance << endl;
+    if (distance < 10 && currentState != CHASE) {
+        currentState = CHASE;
+    }
+    else if (distance > 20 && currentState == CHASE) {
+        currentState = SEARCH;
+    }
 }
 
 void Enemy::executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player) {
@@ -148,4 +168,9 @@ void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
             }
         }
     }
+}
+
+void Enemy::search(float deltaTime, Grid& grid, Player& player)
+{
+
 }

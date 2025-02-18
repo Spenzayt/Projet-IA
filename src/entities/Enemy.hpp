@@ -11,10 +11,13 @@ public:
 
     static constexpr float SPEED = 100.0f;
     static constexpr float DETECTION_RADIUS = 300.0f;
-    Enemy(float x, float y, int hp, Player* _p);
+
+    Enemy(float x, float y, int hp);
+
     void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
     void FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid);
-    
+    void detectPlayer(Grid& grid, Player& player);
+
     enum State {PATROL, CHASE, SEARCH};
     State currentState;
 
@@ -24,8 +27,9 @@ private:
     void chase(Player& player, float deltaTime, Grid& grid);
     void patrol();
     void flee(Player& player, float deltaTime, Grid& grid);
+    void search(float deltaTime, Grid& grid, Player& player);
 
-    State state;
+    //State state;
 };
 
 #endif // ENEMY_HPP
