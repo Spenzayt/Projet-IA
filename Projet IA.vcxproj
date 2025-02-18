@@ -25,6 +25,8 @@
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\ia\goap\GOAPAgent.cpp" />
     <ClCompile Include="src\ia\goap\GOAPPlanner.cpp" />
+    <ClCompile Include="src\ia\pathfinding\Node.cpp" />
+    <ClCompile Include="src\ia\pathfinding\Pathfinding.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\map\Grid.cpp" />
   </ItemGroup>
@@ -37,6 +39,8 @@
     <ClInclude Include="src\ia\goap\GOAPAgent.hpp" />
     <ClInclude Include="src\ia\goap\GOAPPlanner.hpp" />
     <ClInclude Include="src\ia\goap\State.hpp" />
+    <ClInclude Include="src\ia\pathfinding\Node.hpp" />
+    <ClInclude Include="src\ia\pathfinding\Pathfinding.hpp" />
     <ClInclude Include="src\map\Grid.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -37,6 +37,18 @@
     <Filter Include="Fichiers sources\ia">
       <UniqueIdentifier>{67f87762-118b-4532-9d75-f6393cb86f98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\ia\goap">
+      <UniqueIdentifier>{3a5e3442-ccb2-458f-aa49-b61ceb4462a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\ia\pathfinding">
+      <UniqueIdentifier>{18ed64fe-2294-462a-bf4c-5be60d65bc6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\ia\goap">
+      <UniqueIdentifier>{3108dd2a-b410-4cfa-9665-207174fbcc1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\ia\pathfinding">
+      <UniqueIdentifier>{eb4f4183-cf89-478f-8529-6c5dcc58c944}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -57,11 +69,17 @@
     <ClCompile Include="src\game\Game.cpp">
       <Filter>Fichiers sources\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\ia\goap\GOAPAgent.cpp">
-      <Filter>Fichiers sources\ia</Filter>
-    </ClCompile>
     <ClCompile Include="src\ia\goap\GOAPPlanner.cpp">
-      <Filter>Fichiers sources\ia</Filter>
+      <Filter>Fichiers sources\ia\goap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ia\goap\GOAPAgent.cpp">
+      <Filter>Fichiers sources\ia\goap</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ia\pathfinding\Node.cpp">
+      <Filter>Fichiers sources\ia\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ia\pathfinding\Pathfinding.cpp">
+      <Filter>Fichiers sources\ia\pathfinding</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,17 +98,23 @@
     <ClInclude Include="src\game\Game.hpp">
       <Filter>Fichiers d%27en-tête\game</Filter>
     </ClInclude>
+    <ClInclude Include="src\ia\goap\State.hpp">
+      <Filter>Fichiers d%27en-tête\ia\goap</Filter>
+    </ClInclude>
     <ClInclude Include="src\ia\goap\Action.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
+      <Filter>Fichiers d%27en-tête\ia\goap</Filter>
     </ClInclude>
     <ClInclude Include="src\ia\goap\GOAPAgent.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ia\goap\State.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
+      <Filter>Fichiers d%27en-tête\ia\goap</Filter>
     </ClInclude>
     <ClInclude Include="src\ia\goap\GOAPPlanner.hpp">
-      <Filter>Fichiers d%27en-tête\ia</Filter>
+      <Filter>Fichiers d%27en-tête\ia\goap</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\pathfinding\Node.hpp">
+      <Filter>Fichiers d%27en-tête\ia\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ia\pathfinding\Pathfinding.hpp">
+      <Filter>Fichiers d%27en-tête\ia\pathfinding</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
