@@ -7,12 +7,19 @@
 
 class Enemy : public Entity {
 public:
+    Player* p;
+
     static constexpr float SPEED = 100.0f;
     static constexpr float DETECTION_RADIUS = 300.0f;
-    Enemy(float x, float y, int hp);
+    Enemy(float x, float y, int hp, Player* _p);
     void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
+    void FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid);
+    
+    enum State {PATROL, CHASE, SEARCH};
+    State currentState;
 
 private:
+
     void executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player);
     void chase(Player& player, float deltaTime, Grid& grid);
     void patrol();

@@ -63,6 +63,9 @@
     <ClCompile Include="src\ia\goap\GOAPPlanner.cpp">
       <Filter>Fichiers sources\ia</Filter>
     </ClCompile>
+    <ClCompile Include="FSM.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entities\Enemy.hpp">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="src\ia\goap\GOAPPlanner.hpp">
       <Filter>Fichiers d%27en-tête\ia</Filter>
+    </ClInclude>
+    <ClInclude Include="FSM.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,7 +2,11 @@
 #include <cmath>
 #include <iostream>
 
-Enemy::Enemy(float x, float y, int hp) : Entity(x, y, sf::Color::Red, hp) {}
+Enemy::Enemy(float x, float y, int hp, Player* _p) : p(_p), Entity(x, y, sf::Color::Red, hp) {
+
+
+    currentState = PATROL;
+}
 
 void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     Player* detectedPlayer = nullptr;
@@ -37,6 +41,29 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     else {
         executeGoapAction("Patrol", deltaTime, grid, nullptr);
     }
+}
+
+void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid) {
+
+    Vector2f playerPos = p->getPosition();
+
+    switch (currentState) {
+    case PATROL:
+        patrol();
+       /* if (detectedPlayer(vector<Entity*> entity.getPosition())) currentState = CHASE;*/
+        break;
+    case CHASE:
+        chase(_p, deltaTime, grid);
+        /*if (!detectedPlayer(players->sprite.getPosition()) {
+            lastPlayerPosition = player
+                currentState = SEARCH;
+        }*/
+        break;
+    case SEARCH:
+        /*search(lastPlayerPosition, deltaTime);*/
+            break;
+    }
+
 }
 
 void Enemy::executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player) {

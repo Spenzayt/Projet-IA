@@ -47,3 +47,7 @@ void Player::attack(vector<Entity*>enemies) {
     }
     cout << "Player attacks" << endl;
 }
+
+Vector2f Player::getPosition() const {
+    return sprite.getPosition();
+}
