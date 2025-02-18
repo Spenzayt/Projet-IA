@@ -52,73 +52,58 @@ void Enemy::executeGoapAction(const std::string& actionName, float deltaTime, Gr
 }
 
 void Enemy::chase(Player& player, float deltaTime, Grid& grid) {
-    Vector2f direction = player.sprite.getPosition() - sprite.getPosition();
-    float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
+    static Clock transitionClock, pathfindingClock;
+    static float transitionDelay = 0.1f;
+    static float pathfindingDelay = 0.5f;
 
-    if (distance > 0) {
-        direction /= distance;
-        Vector2f newPosition = sprite.getPosition() + direction * SPEED * deltaTime;
+    if (pathfindingClock.getElapsedTime().asSeconds() >= pathfindingDelay) {
+        Vector2i enemyCell(static_cast<int>(sprite.getPosition().x / CELL_SIZE),
+            static_cast<int>(sprite.getPosition().y / CELL_SIZE));
+        Vector2i playerCell(static_cast<int>(player.sprite.getPosition().x / CELL_SIZE),
+            static_cast<int>(player.sprite.getPosition().y / CELL_SIZE));
 
-        auto isWalkable = [&](float x, float y) {
-            int gridX = static_cast<int>(x / CELL_SIZE);
-            int gridY = static_cast<int>(y / CELL_SIZE);
-            return gridX >= 0 && gridX < GRID_WIDTH && gridY >= 0 && gridY < GRID_HEIGHT && grid.getCell(gridX, gridY).walkable;
-            };
+        path = Pathfinding::findPath(grid, enemyCell, playerCell);
 
-        bool canMove = true;
+        pathfindingClock.restart();
+    }
 
-        if (!isWalkable(newPosition.x - 2, newPosition.y - 2) ||
-            !isWalkable(newPosition.x + 2, newPosition.y - 2) ||
-            !isWalkable(newPosition.x - 2, newPosition.y + 2) ||
-            !isWalkable(newPosition.x + 2, newPosition.y + 2)) {
-            canMove = false;
-        }
-        if (!isWalkable(newPosition.x, newPosition.y) ||
-            !isWalkable(newPosition.x + sprite.getSize().x, newPosition.y) ||
-            !isWalkable(newPosition.x, newPosition.y + sprite.getSize().y) ||
-            !isWalkable(newPosition.x + sprite.getSize().x, newPosition.y + sprite.getSize().y)) {
-            canMove = false;
-        }
-        if (canMove) {
-            sprite.move(direction * SPEED * deltaTime);
-        }
+    if (transitionClock.getElapsedTime().asSeconds() >= transitionDelay && !path.empty()) {
+        Vector2i nextCell = path[0];
+        centerOnCell(nextCell.x, nextCell.y);
+        path.erase(path.begin());
+
+        transitionClock.restart();
     }
 }
 
 void Enemy::patrol() {}
 
 void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
+    static Clock pathfindingClock;
+    static float pathfindingDelay = 0.1f;
+
     Vector2f direction = sprite.getPosition() - player.sprite.getPosition();
     float distance = sqrt(direction.x * direction.x + direction.y * direction.y);
 
-    if (distance < 200) {
+    if (distance < DETECTION_RADIUS) {
         if (distance > 0) {
             direction /= distance;
-            Vector2f newPosition = sprite.getPosition() + direction * SPEED * deltaTime;
+            Vector2i enemyCell(static_cast<int>(sprite.getPosition().x / CELL_SIZE),
+                static_cast<int>(sprite.getPosition().y / CELL_SIZE));
+            Vector2i playerCell(static_cast<int>(player.sprite.getPosition().x / CELL_SIZE),
+                static_cast<int>(player.sprite.getPosition().y / CELL_SIZE));
 
-            auto isWalkable = [&](float x, float y) {
-                int gridX = static_cast<int>(x / CELL_SIZE);
-                int gridY = static_cast<int>(y / CELL_SIZE);
-                return gridX >= 0 && gridX < GRID_WIDTH && gridY >= 0 && gridY < GRID_HEIGHT && grid.getCell(gridX, gridY).walkable;
-                };
+            if (pathfindingClock.getElapsedTime().asSeconds() >= pathfindingDelay) {
+                path = Pathfinding::findOppositePath(grid, enemyCell, playerCell);
 
-            bool canMove = true;
-
-            if (!isWalkable(newPosition.x - 2, newPosition.y - 2) ||
-                !isWalkable(newPosition.x + 2, newPosition.y - 2) ||
-                !isWalkable(newPosition.x - 2, newPosition.y + 2) ||
-                !isWalkable(newPosition.x + 2, newPosition.y + 2)) {
-                canMove = false;
-            }
-            if (!isWalkable(newPosition.x, newPosition.y) ||
-                !isWalkable(newPosition.x + sprite.getSize().x, newPosition.y) ||
-                !isWalkable(newPosition.x, newPosition.y + sprite.getSize().y) ||
-                !isWalkable(newPosition.x + sprite.getSize().x, newPosition.y + sprite.getSize().y)) {
-                canMove = false;
-            }
-            if (canMove) {
-                sprite.move(direction * SPEED * deltaTime);
+                pathfindingClock.restart();
             }
         }
+    }
+
+    if (!path.empty()) {
+        Vector2i nextCell = path[0];
+        centerOnCell(nextCell.x, nextCell.y);
+        path.erase(path.begin());
     }
 }

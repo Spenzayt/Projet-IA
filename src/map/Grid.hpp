@@ -24,6 +24,7 @@ public:
     void loadFromFile(const string& filename);
     void draw(RenderWindow& window);
     Cell& getCell(int x, int y);
+
 private:
     vector<vector<Cell>> cells;
 };
