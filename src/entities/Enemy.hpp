@@ -4,11 +4,12 @@
 #include "Entity.hpp"
 #include "Player.hpp"
 #include "../ia/goap/State.hpp"
+#include "../ia/pathfinding/Pathfinding.hpp"
 
 class Enemy : public Entity {
 public:
     static constexpr float SPEED = 100.0f;
-    static constexpr float DETECTION_RADIUS = 300.0f;
+    static constexpr float DETECTION_RADIUS = 500.0f;
     Enemy(float x, float y, int hp);
     void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
 
@@ -19,6 +20,7 @@ private:
     void flee(Player& player, float deltaTime, Grid& grid);
 
     State state;
+    vector<Vector2i> path;
 };
 
 #endif // ENEMY_HPP
