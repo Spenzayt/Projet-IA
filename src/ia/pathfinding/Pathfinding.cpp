@@ -16,11 +16,6 @@ struct Vector2iHash {
     }
 };
 
-template <typename T>
-T clamp(T value, T min, T max) {
-    return (value < min) ? min : (value > max ? max : value);
-}
-
 vector<Vector2i> Pathfinding::findPath(Grid& grid, Vector2i start, Vector2i end) {
     priority_queue<Node*, vector<Node*>, CompareNodePtr> openQueue;
     unordered_map<Vector2i, Node*, Vector2iHash> allNodes;  
