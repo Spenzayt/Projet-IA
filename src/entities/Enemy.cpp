@@ -1,5 +1,5 @@
 #include "Enemy.hpp"
-#include <cmath>
+# include <cmath>
 #include <iostream>
 
 Enemy::Enemy(float x, float y, int hp) : Entity(x, y, sf::Color::Red, hp) {
@@ -49,6 +49,7 @@ void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid
 
     /*Vector2f playerPos = p->getPosition();*/
     detectPlayer(grid, _p);
+    returnPos(deltaTime, grid, _p);
 
     switch (currentState) {
     case PATROL:
@@ -62,9 +63,9 @@ void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid
                 currentState = SEARCH;
         }*/
         break;
-    case SEARCH:
+    case RETURN:
         cout << "change d'état" << endl;
-        /*search(lastPlayerPosition, deltaTime);*/
+        
             break;
     }
 
@@ -82,7 +83,23 @@ void Enemy::detectPlayer(Grid& grid, Player& player)
         currentState = CHASE;
     }
     else if (distance > 20 && currentState == CHASE) {
-        currentState = SEARCH;
+        currentState = RETURN;
+    }
+}
+
+void Enemy::returnPos(float deltaTime, Grid& grid, Player& player)
+{
+    Vector2i playerPos = Vector2i(player.sprite.getPosition().x / CELL_SIZE, player.sprite.getPosition().y / CELL_SIZE);
+    Vector2i enemyPos = Vector2i(sprite.getPosition().x / CELL_SIZE, sprite.getPosition().y / CELL_SIZE);
+
+    int distance = abs(enemyPos.x - playerPos.x) + abs(enemyPos.y - playerPos.y);
+
+    cout << "Distance : " << distance << endl;
+    if (distance > 10 && currentState != CHASE) {
+        currentState = CHASE;
+    }
+    else if (distance < 5 && currentState == CHASE) {
+        currentState = RETURN;
     }
 }
 
@@ -170,7 +187,4 @@ void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
     }
 }
 
-void Enemy::search(float deltaTime, Grid& grid, Player& player)
-{
 
-}

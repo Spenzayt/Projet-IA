@@ -17,8 +17,10 @@ public:
     void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
     void FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid);
     void detectPlayer(Grid& grid, Player& player);
+    void returnPos(float deltaTime, Grid& grid, Player& player);
 
-    enum State {PATROL, CHASE, SEARCH};
+
+    enum State {PATROL, CHASE, RETURN};
     State currentState;
 
 private:
@@ -27,7 +29,6 @@ private:
     void chase(Player& player, float deltaTime, Grid& grid);
     void patrol();
     void flee(Player& player, float deltaTime, Grid& grid);
-    void search(float deltaTime, Grid& grid, Player& player);
 
     //State state;
 };
