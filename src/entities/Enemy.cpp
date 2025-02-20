@@ -79,10 +79,10 @@ void Enemy::detectPlayer(Grid& grid, Player& player)
     int distance = abs(enemyPos.x - playerPos.x) + abs(enemyPos.y - playerPos.y);
 
     cout << "Distance : " << distance << endl;
-    if (distance < 10 && currentState != CHASE) {
+    if (distance > 20 && currentState != CHASE) {
         currentState = CHASE;
     }
-    else if (distance > 20 && currentState == CHASE) {
+    else if (distance < 5 && currentState == CHASE) {
         currentState = RETURN;
     }
 }
@@ -95,10 +95,10 @@ void Enemy::returnPos(float deltaTime, Grid& grid, Player& player)
     int distance = abs(enemyPos.x - playerPos.x) + abs(enemyPos.y - playerPos.y);
 
     cout << "Distance : " << distance << endl;
-    if (distance > 10 && currentState != CHASE) {
+    if (distance < 10 && currentState != CHASE) {
         currentState = CHASE;
     }
-    else if (distance < 5 && currentState == CHASE) {
+    else if (distance > 20 && currentState == CHASE) {
         currentState = RETURN;
     }
 }
