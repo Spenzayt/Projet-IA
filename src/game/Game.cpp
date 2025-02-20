@@ -1,24 +1,28 @@
 #include "Game.hpp"
 
-// Game Construtor
-Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(40*2, 40*24, 10) {
+// Game Constructor
+Game::Game()
+    : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen),
+    player(40 * 2, 40 * 24, 10)
+{
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
+    // Load the map
     grid.loadFromFile("src/map/map.txt");
-    enemies.push_back(new Enemy(40*41+5, 40*5+5, 10));
-    enemies.push_back(new Enemy(40*41+5, 40*21+5, 100));
+
+    // Create enemies with their positions and health points
+    enemies.push_back(make_unique<Enemy>(40 * 41 + 5, 40 * 5 + 5, 10));
+    enemies.push_back(make_unique<Enemy>(40 * 41 + 5, 40 * 21 + 5, 100));
 }
 
+// Game Destructor
 Game::~Game() {}
 
-// Main Loop
+// Main game loop
 void Game::run() {
-    Clock clock;
-
     while (window.isOpen()) {
-        Time dt = clock.restart();
-        float deltaTime = dt.asSeconds();
+        float deltaTime = clock.restart().asSeconds();
 
         processEvents();
         update(deltaTime);
@@ -26,7 +30,7 @@ void Game::run() {
     }
 }
 
-// Event Loop
+// Handle events
 void Game::processEvents() {
     Event event;
     while (window.pollEvent(event)) {
@@ -35,15 +39,25 @@ void Game::processEvents() {
     }
 }
 
-// All Update
+// Update all game objects
 void Game::update(float deltaTime) {
-    player.update(deltaTime, grid, enemies);
+    // Create a vector of entity pointers (Player + Enemies)
+    vector<Entity*> entities;
+    entities.push_back(&player);
     for (auto& enemy : enemies) {
-        enemy->update(deltaTime, grid, { &player });
+        entities.push_back(enemy.get());  // Add the enemy using get() to get the pointer
+    }
+
+    // Update the player
+    player.update(deltaTime, grid, entities);
+
+    // Update each enemy
+    for (auto& enemy : enemies) {
+        enemy->update(deltaTime, grid, entities);
     }
 }
 
-// All Draw
+// Render all game objects
 void Game::render() {
     window.clear();
 

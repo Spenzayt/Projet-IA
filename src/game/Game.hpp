@@ -2,13 +2,12 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Config.hpp"
 #include "../entities/Player.hpp"
 #include "../entities/Enemy.hpp"
 #include "../map/Grid.hpp"
 #include <vector>
-
-using namespace std;
-using namespace sf;
+#include <memory>
 
 class Game {
 public:
@@ -17,14 +16,16 @@ public:
     void run();
 
 private:
-    RenderWindow window;
-    Player player;
-    vector<Entity*> enemies;
-    Grid grid;
-
     void processEvents();
     void update(float deltaTime);
     void render();
+
+    RenderWindow window;
+    Clock clock;
+
+    Grid grid;
+    Player player;
+    vector<unique_ptr<Enemy>> enemies;
 };
 
 #endif // GAME_HPP

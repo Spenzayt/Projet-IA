@@ -1,13 +1,12 @@
 #ifndef GRID_HPP
 #define GRID_HPP
 
-#include <vector>
 #include <SFML/Graphics.hpp>
-#include <string>
 #include "../game/Config.hpp"
-
-using namespace std;
-using namespace sf;
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
 struct Cell {
     bool walkable;
@@ -21,9 +20,11 @@ public:
     void loadFromFile(const string& filename);
     void draw(RenderWindow& window);
     Cell& getCell(int x, int y);
+    bool isCellWalkable(int x, int y);
+    Vector2i worldToCell(const Vector2f& worldPosition) const;
 
 private:
     vector<vector<Cell>> cells;
 };
 
-#endif
+#endif // GRID_HPP

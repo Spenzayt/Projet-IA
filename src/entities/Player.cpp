@@ -1,55 +1,49 @@
 #include "Player.hpp"
-#include <SFML/Window/Keyboard.hpp>
-#include <iostream>
-#include "Enemy.hpp"
 
+// Player Constructor 
 Player::Player(float x, float y, int hp) : Entity(x, y, Color::Blue, hp), attackTimer(0.f) {}
 
-void Player::update(float deltaTime, Grid& grid, vector<Entity*> enemies) {
-    Vector2i currentCell(static_cast<int>(sprite.getPosition().x / Config::CELL_SIZE),
-        static_cast<int>(sprite.getPosition().y / Config::CELL_SIZE));
+void Player::update(float deltaTime, Grid& grid, vector<Entity*>& enemies) {
+    Vector2i currentCell(static_cast<int>(getSprite().getPosition().x / Config::CELL_SIZE),
+        static_cast<int>(getSprite().getPosition().y / Config::CELL_SIZE));
     Vector2i targetCell = currentCell;
 
+    // Handle player movement based on keyboard input
     if (moveTimer >= moveDelay) {
         if (Keyboard::isKeyPressed(Keyboard::Z)) targetCell.y -= 1;
         if (Keyboard::isKeyPressed(Keyboard::S)) targetCell.y += 1;
         if (Keyboard::isKeyPressed(Keyboard::Q)) targetCell.x -= 1;
         if (Keyboard::isKeyPressed(Keyboard::D)) targetCell.x += 1;
 
-        Vector2f targetPosition(targetCell.x * Config::CELL_SIZE, targetCell.y * Config::CELL_SIZE);
-
-        auto isWalkable = [&](int x, int y) {
-            return x >= 0 && x < Config::GRID_WIDTH && y >= 0 && y < Config::GRID_HEIGHT && grid.getCell(x, y).walkable;
-            };
-
-        if (isWalkable(targetCell.x, targetCell.y)) {
+        // Check if the target cell is walkable
+        if (grid.isCellWalkable(targetCell.x, targetCell.y)) {
             centerOnCell(targetCell.x, targetCell.y);
+            moveTimer = 0.f;
         }
-        moveTimer = 0.f;
+    }
+    else {
+        moveTimer += deltaTime;
     }
 
-    moveTimer += deltaTime;
-
+    // Handle attack timing and actions
     attackTimer += deltaTime;
-    if (Mouse::isButtonPressed(Mouse::Left) && attackTimer >= ATTACK_COOLDOWN) {
+    if (attackTimer >= ATTACK_COOLDOWN) {
         attack(enemies);
         attackTimer = 0.f;
     }
 }
 
+// Draw the player sprite on the window
 void Player::draw(RenderWindow& window) {
-    window.draw(sprite);
+    window.draw(getSprite());
 }
 
-void Player::attack(vector<Entity*>enemies) {
-    for (auto& enemy : enemies) {
-        if (enemy == dynamic_cast<Enemy*>(enemy)) {
-            if (enemy->isAlive() && sprite.getGlobalBounds().intersects(enemy->sprite.getGlobalBounds())) {
-                enemy->takeDamage(DAMAGE);
-                cout << "Enemy HP: " << enemy->health << endl;
-            }
+// Perform an attack on nearby enemies
+void Player::attack(vector<Entity*>& enemies) {
+    for (auto& entity : enemies) {
+        Enemy* enemy = dynamic_cast<Enemy*>(entity);
+        if (enemy && getSprite().getGlobalBounds().intersects(enemy->getSprite().getGlobalBounds())) {
+            enemy->takeDamage(DAMAGE);
         }
-
     }
-    cout << "Player attacks" << endl;
 }

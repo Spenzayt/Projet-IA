@@ -5,6 +5,10 @@
 #include "Player.hpp"
 #include "../ia/goap/State.hpp"
 #include "../ia/pathfinding/Pathfinding.hpp"
+#include <cmath>
+#include <iostream>
+
+class Player;
 
 class Enemy : public Entity {
 public:
@@ -12,20 +16,19 @@ public:
     static constexpr float DETECTION_RADIUS = 500.0f;
 
     Enemy(float x, float y, int hp);
-    void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
+    void update(float deltaTime, Grid& grid, vector<Entity*>& players) override;
     void draw(RenderWindow& window) override;
 
 private:
-    void executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player);
+    void executeGoapAction(const string& actionName, float deltaTime, Grid& grid, Player* player);
     void chase(Player& player, float deltaTime, Grid& grid);
     void patrol();
     void flee(Player& player, float deltaTime, Grid& grid);
-    bool raycast(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, Player* player);
+    bool raycast(const Vector2f& rayOrigin, const Vector2f& rayDirection, Player* player);
 
     State state;
     vector<Vector2i> path;
-    sf::VertexArray ray;
-
+    VertexArray ray;
 };
 
 #endif // ENEMY_HPP

@@ -16,6 +16,8 @@ public:
 
     Node(Vector2i pos);
     void calculateCosts(Vector2i endPos, int newG);
+
+private:
     int calculateHeuristic(Vector2i endPos);
 };
 
