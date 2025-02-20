@@ -17,8 +17,6 @@ public:
 	};
 	State currentState;
 
-	bool detectPlayer(Player& player);
-
 	void update(Player& player, Grid& grid, float deltaTime);
 
 

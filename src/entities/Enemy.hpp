@@ -14,7 +14,7 @@ public:
 
     Enemy(float x, float y, int hp);
     void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
-    void FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid);
+    void FSM(Player& player, vector<Entity*> players, float deltaTime, Grid& grid);
     void detectPlayer(Player& player, Grid& grid, float deltaTime);
     void returnPos(Player& player, Grid& grid, float deltaTime);
     
