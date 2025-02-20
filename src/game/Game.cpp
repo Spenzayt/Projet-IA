@@ -9,11 +9,11 @@ Game::Game()
     window.setVerticalSyncEnabled(true);
 
     // Load the map
-    grid.loadFromFile("src/map/map.txt");
+    grid.loadFromFile("src/script/output_map.txt");
 
     // Create enemies with their positions and health points
-    enemies.push_back(make_unique<Enemy>(40 * 41 + 5, 40 * 5 + 5, 10));
-    enemies.push_back(make_unique<Enemy>(40 * 41 + 5, 40 * 21 + 5, 100));
+    enemies.push_back(make_unique<Enemy>(40 * 4 + 5, 40 * 4 + 5, 10));
+    enemies.push_back(make_unique<Enemy>(40 * 4 + 5, 40 * 22 + 5, 100));
 }
 
 // Game Destructor

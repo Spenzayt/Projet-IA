@@ -10,10 +10,16 @@
 
 class Player;
 
+enum class PatrolState {
+    Patrolling,
+    Paused,
+    Alerted
+};
+
 class Enemy : public Entity {
 public:
     static constexpr float SPEED = 100.0f;
-    static constexpr float DETECTION_RADIUS = 500.0f;
+    static constexpr float DETECTION_RADIUS = 300.f;
 
     Enemy(float x, float y, int hp);
     void update(float deltaTime, Grid& grid, vector<Entity*>& players) override;
@@ -22,11 +28,18 @@ public:
 private:
     void executeGoapAction(const string& actionName, float deltaTime, Grid& grid, Player* player);
     void chase(Player& player, float deltaTime, Grid& grid);
-    void patrol();
+    void patrol(float deltaTime, Grid& grid);
     void flee(Player& player, float deltaTime, Grid& grid);
+    void setState(PatrolState newState);
 
     State state;
     vector<Vector2i> path;
+
+    PatrolState currentState;
+    Vector2i patrolPoints[4];
+    int currentPatrolPointIndex;
+    sf::Clock pauseClock;
+    float pauseDuration;
 };
 
 #endif // ENEMY_HPP

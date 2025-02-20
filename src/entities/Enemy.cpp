@@ -1,7 +1,12 @@
 #include "Enemy.hpp"
 
 // Enemy Constructor 
-Enemy::Enemy(float x, float y, int hp) : Entity(x, y, Color::Red, hp) {}
+Enemy::Enemy(float x, float y, int hp) : Entity(x, y, Color::Red, hp), currentState(PatrolState::Patrolling), currentPatrolPointIndex(0), pauseDuration(2.0f) {
+    patrolPoints[0] = { 40 * 43, 40 * 4 };
+    patrolPoints[1] = { 40 * 43, 40 * 22 };
+    patrolPoints[2] = { 40 * 4, 40 * 22 };
+    patrolPoints[3] = { 40 * 4, 40 * 4 };
+}
 
 void Enemy::update(float deltaTime, Grid& grid, vector<Entity*>& players) {
     Player* detectedPlayer = nullptr;
@@ -32,18 +37,24 @@ void Enemy::update(float deltaTime, Grid& grid, vector<Entity*>& players) {
         state.SetLow(false);
     }
 
-    // Execute actions based on player detection and health status
+    // Handle states
     if (state.IsLow() && detectedPlayer) {
         executeGoapAction("Flee", deltaTime, grid, detectedPlayer);
     }
     else if (state.HasSeenPlayer() && detectedPlayer) {
+        setState(PatrolState::Alerted);
         executeGoapAction("Chase", deltaTime, grid, detectedPlayer);
+    }
+    else if (currentState == PatrolState::Alerted && pauseClock.getElapsedTime().asSeconds() >= 1.0f) {
+        setState(PatrolState::Patrolling);
+        executeGoapAction("Patrol", deltaTime, grid, nullptr);
     }
     else {
         executeGoapAction("Patrol", deltaTime, grid, nullptr);
     }
 }
 
+// Draw the enemy sprite on the window
 void Enemy::draw(RenderWindow& window) {
     window.draw(getSprite());
 }
@@ -57,7 +68,7 @@ void Enemy::executeGoapAction(const std::string& actionName, float deltaTime, Gr
         flee(*player, deltaTime, grid);
     }
     else if (actionName == "Patrol") {
-        patrol();
+        patrol(deltaTime, grid);
     }
 }
 
@@ -88,8 +99,54 @@ void Enemy::chase(Player& player, float deltaTime, Grid& grid) {
     }
 }
 
-// Patrol behavior (currently not implemented)
-void Enemy::patrol() {}
+void Enemy::patrol(float deltaTime, Grid& grid) {
+    // Check if the enemy is still in the pause state
+    if (pauseClock.getElapsedTime().asSeconds() < pauseDuration) {
+        return;
+    }
+
+    static Clock transitionClock;
+    static float transitionDelay = 0.1f;
+
+    // Get the current position of the enemy in the grid
+    Vector2i enemyCell(static_cast<int>(getSprite().getPosition().x / Config::CELL_SIZE),
+        static_cast<int>(getSprite().getPosition().y / Config::CELL_SIZE));
+
+    // Get the target patrol point in the grid
+    Vector2i targetCell(patrolPoints[currentPatrolPointIndex].x / Config::CELL_SIZE,
+        patrolPoints[currentPatrolPointIndex].y / Config::CELL_SIZE);
+
+    // Calculate the path if it's empty or if the target has changed
+    if (path.empty() || path.back() != targetCell) {
+        path = Pathfinding::findPath(grid, enemyCell, targetCell);
+    }
+
+    // Move the enemy to the next cell on the path if the transition delay has passed
+    if (transitionClock.getElapsedTime().asSeconds() >= transitionDelay && !path.empty()) {
+        Vector2i nextCell = path.front();
+        Vector2f newPosition(nextCell.x * Config::CELL_SIZE, nextCell.y * Config::CELL_SIZE);
+        centerOnCell(nextCell.x, nextCell.y);
+        path.erase(path.begin());
+        transitionClock.restart();
+    }
+
+    // Check if the enemy has reached the target patrol point
+    if (path.empty() && enemyCell == targetCell) {
+        // Update the patrol point index to move to the next point
+        currentPatrolPointIndex = (currentPatrolPointIndex + 1) % 4;
+        pauseClock.restart();
+
+        // Recalculate the enemy's current position and the new target patrol point
+        enemyCell = Vector2i(static_cast<int>(getSprite().getPosition().x / Config::CELL_SIZE),
+            static_cast<int>(getSprite().getPosition().y / Config::CELL_SIZE));
+
+        targetCell = Vector2i(patrolPoints[currentPatrolPointIndex].x / Config::CELL_SIZE,
+            patrolPoints[currentPatrolPointIndex].y / Config::CELL_SIZE);
+
+        // Calculate the new path to the next patrol point
+        path = Pathfinding::findPath(grid, enemyCell, targetCell);
+    }
+}
 
 // Flee from the player using pathfinding
 void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
@@ -122,4 +179,8 @@ void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
         centerOnCell(nextCell.x, nextCell.y);
         path.erase(path.begin());
     }
+}
+
+void Enemy::setState(PatrolState newState) {
+    currentState = newState;
 }
