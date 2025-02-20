@@ -1,6 +1,7 @@
 #include "Enemy.hpp"
 # include <cmath>
 #include <iostream>
+#include <ctime>
 
 Enemy::Enemy(float x, float y, int hp) : Entity(x, y, sf::Color::Red, hp) {
 
@@ -8,7 +9,7 @@ Enemy::Enemy(float x, float y, int hp) : Entity(x, y, sf::Color::Red, hp) {
 }
 
 void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
-    Player* detectedPlayer = nullptr;
+   
 
     for (auto& entity : players) {
         Player* player = dynamic_cast<Player*>(entity);
@@ -54,14 +55,18 @@ void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid
     switch (currentState) {
     case PATROL:
         patrol();
-       /* if (detectedPlayer(vector<Entity*> entity.getPosition())) currentState = CHASE;*/
+        detectPlayer(player, grid, deltaTime);
         break;
+
     case CHASE:
-        chase(_p, deltaTime, grid);
-        /*if (!detectedPlayer(players->sprite.getPosition()) {
-            lastPlayerPosition = player
-                currentState = SEARCH;
-        }*/
+        
+        if (deltaTime < 1) {
+            chase(player, deltaTime, grid);
+            cout << "Time : " << deltaTime << endl;
+           
+        }else if (deltaTime > 0){
+            returnPos(player, grid, deltaTime);
+        }
         break;
     case RETURN:
         cout << "change d'état" << endl;
