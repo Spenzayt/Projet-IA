@@ -2,9 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-Enemy::Enemy(float x, float y, int hp, Player* _p) : p(_p), Entity(x, y, sf::Color::Red, hp) {
-
-
+Enemy::Enemy(float x, float y, int hp) : Entity(x, y, sf::Color::Red, hp) {
     currentState = PATROL;
 }
 
@@ -17,15 +15,16 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
             float distance = sqrt(pow(player->sprite.getPosition().x - sprite.getPosition().x, 2) +
                 pow(player->sprite.getPosition().y - sprite.getPosition().y, 2));
 
-            if (distance <= DETECTION_RADIUS) {
+          /*  if (distance <= DETECTION_RADIUS) {
                 detectedPlayer = player;
                 state.SetSeenPlayer(true);
                 break;
-            }
+            }*/
         }
+        detectPlayer( *player, grid, deltaTime);
     }
 
-    if (health <= 20) {
+   /* if (health <= 20) {
         state.SetLow(true);
     }
     else {
@@ -40,29 +39,49 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     }
     else {
         executeGoapAction("Patrol", deltaTime, grid, nullptr);
-    }
+    }*/
 }
 
 void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid) {
 
-    Vector2f playerPos = p->getPosition();
-
     switch (currentState) {
     case PATROL:
         patrol();
-       /* if (detectedPlayer(vector<Entity*> entity.getPosition())) currentState = CHASE;*/
-        break;
+      
     case CHASE:
         chase(_p, deltaTime, grid);
-        /*if (!detectedPlayer(players->sprite.getPosition()) {
-            lastPlayerPosition = player
-                currentState = SEARCH;
-        }*/
+
         break;
-    case SEARCH:
-        /*search(lastPlayerPosition, deltaTime);*/
+    case RETURN:
+      
             break;
     }
+
+}
+
+void Enemy::detectPlayer(Player& player, Grid& grid, float deltaTime)
+{
+    Vector2i playerPos = Vector2i(player.getPosition());
+    Vector2i enemyPos = Vector2i (sprite.getPosition());
+
+    int distance = abs(pow(playerPos.x - enemyPos.x, 2) - (pow(playerPos.y - enemyPos.y, 2)));
+
+    cout << "Distance : " << distance << endl;
+
+    if (distance < 5 && currentState == PATROL) {
+        currentState = CHASE;
+        cout << "Changement d'état !" << endl;
+    }
+    else if (distance > 10 && currentState == CHASE)
+    {
+        currentState = PATROL;
+        cout << "Retour à l'état initial !" << endl;
+    }
+
+}
+
+void Enemy::returnPos(Player& player, Grid& grid, float deltaTime)
+{
 
 }
 
