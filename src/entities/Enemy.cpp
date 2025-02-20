@@ -45,21 +45,17 @@ void Enemy::draw(sf::RenderWindow& window) {
 }
 
 bool Enemy::raycast(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, Player* player) {
-    const float RAY_LENGTH = 500.f;  // Longueur du rayon
+    const float RAY_LENGTH = 500.f;
 
-    // Calculer la fin du rayon
     sf::Vector2f rayEnd = rayOrigin + rayDirection * RAY_LENGTH;
 
-    // Calculer la distance entre l'origine du rayon et la position du joueur
     sf::Vector2f playerPos = player->sprite.getPosition();
     float distanceToPlayer = sqrt(pow(playerPos.x - rayOrigin.x, 2) + pow(playerPos.y - rayOrigin.y, 2));
 
-    // Créer le rayon pour l'affichage
     ray.clear();
     ray.append(sf::Vertex(rayOrigin, sf::Color::Yellow));
     ray.append(sf::Vertex(rayEnd, sf::Color::Yellow));
 
-    // Si la distance entre le joueur et l'origine du rayon est inférieure à la longueur du rayon, le rayon touche le joueur
     if (distanceToPlayer < RAY_LENGTH) {
         return true;
     }
@@ -128,7 +124,6 @@ void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
             }
         }
     }
-
     if (!path.empty()) {
         Vector2i nextCell = path[0];
         centerOnCell(nextCell.x, nextCell.y);

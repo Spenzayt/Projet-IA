@@ -10,9 +10,10 @@ class Enemy : public Entity {
 public:
     static constexpr float SPEED = 100.0f;
     static constexpr float DETECTION_RADIUS = 500.0f;
+
     Enemy(float x, float y, int hp);
     void update(float deltaTime, Grid& grid, vector<Entity*> players) override;
-    void draw(RenderWindow& window);
+    void draw(RenderWindow& window) override;
 
 private:
     void executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player);

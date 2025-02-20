@@ -3,8 +3,8 @@
 const int WINDOW_WIDTH = 1920;
 const int WINDOW_HEIGHT = 1080;
 
-Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(40*2, 40*24, 10)
-{
+// Game Construtor
+Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(40*2, 40*24, 10) {
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
 
@@ -15,6 +15,7 @@ Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscree
 
 Game::~Game() {}
 
+// Main Loop
 void Game::run() {
     Clock clock;
 
@@ -28,6 +29,7 @@ void Game::run() {
     }
 }
 
+// Event Loop
 void Game::processEvents() {
     Event event;
     while (window.pollEvent(event)) {
@@ -36,6 +38,7 @@ void Game::processEvents() {
     }
 }
 
+// All Update
 void Game::update(float deltaTime) {
     player.update(deltaTime, grid, enemies);
     for (auto& enemy : enemies) {
@@ -43,11 +46,12 @@ void Game::update(float deltaTime) {
     }
 }
 
+// All Draw
 void Game::render() {
     window.clear();
 
     grid.draw(window);
-    window.draw(player.sprite);
+    player.draw(window);
     for (const auto& enemy : enemies) {
         if (enemy->isAlive()) {
             enemy->draw(window);

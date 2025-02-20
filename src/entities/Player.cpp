@@ -37,6 +37,10 @@ void Player::update(float deltaTime, Grid& grid, vector<Entity*> enemies) {
     }
 }
 
+void Player::draw(RenderWindow& window) {
+    window.draw(sprite);
+}
+
 void Player::attack(vector<Entity*>enemies) {
     for (auto& enemy : enemies) {
         if (enemy == dynamic_cast<Enemy*>(enemy)) {

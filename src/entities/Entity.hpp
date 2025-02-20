@@ -20,7 +20,6 @@ public:
     bool isAlive() const;
     void takeDamage(int damage);
     void centerOnCell(int gridX, int gridY);
-
 };
 
 #endif // ENTITY_HPP
