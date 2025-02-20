@@ -10,10 +10,10 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     for (auto& entity : players) {
         Player* player = dynamic_cast<Player*>(entity);
         if (player) {
-            float distance = sqrt(pow(player->sprite.getPosition().x - sprite.getPosition().x, 2) +
-                pow(player->sprite.getPosition().y - sprite.getPosition().y, 2));
+            sf::Vector2f rayOrigin(sprite.getPosition().x, sprite.getPosition().y);
+            sf::Vector2f rayDirection(1.f, 0.f);
 
-            if (distance <= DETECTION_RADIUS) {
+            if (raycast(rayOrigin, rayDirection, player)) {
                 detectedPlayer = player;
                 state.SetSeenPlayer(true);
                 break;
@@ -37,6 +37,30 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
     else {
         executeGoapAction("Patrol", deltaTime, grid, nullptr);
     }
+}
+
+void Enemy::draw(sf::RenderWindow& window) {
+    window.draw(sprite);
+    window.draw(ray);
+}
+
+bool Enemy::raycast(const sf::Vector2f& rayOrigin, const sf::Vector2f& rayDirection, Player* player) {
+    const float RAY_LENGTH = 500.f;
+
+    sf::Vector2f rayEnd = rayOrigin + rayDirection * RAY_LENGTH;
+
+    sf::Vector2f playerPos = player->sprite.getPosition();
+    float distanceToPlayer = sqrt(pow(playerPos.x - rayOrigin.x, 2) + pow(playerPos.y - rayOrigin.y, 2));
+
+    ray.clear();
+    ray.append(sf::Vertex(rayOrigin, sf::Color::Yellow));
+    ray.append(sf::Vertex(rayEnd, sf::Color::Yellow));
+
+    if (distanceToPlayer < RAY_LENGTH) {
+        return true;
+    }
+
+    return false;
 }
 
 void Enemy::executeGoapAction(const std::string& actionName, float deltaTime, Grid& grid, Player* player) {
@@ -100,7 +124,6 @@ void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
             }
         }
     }
-
     if (!path.empty()) {
         Vector2i nextCell = path[0];
         centerOnCell(nextCell.x, nextCell.y);
