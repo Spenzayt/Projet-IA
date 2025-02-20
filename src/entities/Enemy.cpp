@@ -10,11 +10,13 @@ void Enemy::update(float deltaTime, Grid& grid, vector<Entity*>& players) {
     for (auto& entity : players) {
         Player* player = dynamic_cast<Player*>(entity);
         if (player) {
-            Vector2f rayOrigin(getSprite().getPosition().x, getSprite().getPosition().y);
-            Vector2f rayDirection(1.f, 0.f);
+            Vector2f enemyPosition = getSprite().getPosition();
+            Vector2f playerPosition = player->getSprite().getPosition();
 
-            // Perform raycast to detect player
-            if (raycast(rayOrigin, rayDirection, player)) {
+            float distance = sqrt(pow(playerPosition.x - enemyPosition.x, 2) + pow(playerPosition.y - enemyPosition.y, 2));
+
+            // Check if the player is within detection radius
+            if (distance <= DETECTION_RADIUS) {
                 detectedPlayer = player;
                 state.SetSeenPlayer(true);
                 break;
@@ -42,26 +44,8 @@ void Enemy::update(float deltaTime, Grid& grid, vector<Entity*>& players) {
     }
 }
 
-// Draw the enemy and ray in the window
 void Enemy::draw(RenderWindow& window) {
     window.draw(getSprite());
-    window.draw(ray);
-}
-
-// Perform raycast to detect if the player is in sight
-bool Enemy::raycast(const Vector2f& rayOrigin, const Vector2f& rayDirection, Player* player) {
-    const float RAY_LENGTH = 500.f;
-
-    Vector2f rayEnd = rayOrigin + rayDirection * RAY_LENGTH;
-    Vector2f playerPos = player->getSprite().getPosition();
-    float distanceToPlayer = sqrt(pow(playerPos.x - rayOrigin.x, 2) + pow(playerPos.y - rayOrigin.y, 2));
-
-    // Draw the ray for debugging purposes
-    ray.clear();
-    ray.append(Vertex(rayOrigin, Color::Yellow));
-    ray.append(Vertex(rayEnd, Color::Yellow));
-
-    return distanceToPlayer < RAY_LENGTH;
 }
 
 // Execute the specified GOAP action

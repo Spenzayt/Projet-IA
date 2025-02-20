@@ -24,11 +24,9 @@ private:
     void chase(Player& player, float deltaTime, Grid& grid);
     void patrol();
     void flee(Player& player, float deltaTime, Grid& grid);
-    bool raycast(const Vector2f& rayOrigin, const Vector2f& rayDirection, Player* player);
 
     State state;
     vector<Vector2i> path;
-    VertexArray ray;
 };
 
 #endif // ENEMY_HPP
