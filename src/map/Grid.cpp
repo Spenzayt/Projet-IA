@@ -3,10 +3,10 @@
 #include <iostream>
 
 Grid::Grid() {
-    cells.resize(GRID_HEIGHT, std::vector<Cell>(GRID_WIDTH, { true, {0, 0}, sf::RectangleShape(sf::Vector2f(CELL_SIZE, CELL_SIZE)) }));
-    for (int y = 0; y < GRID_HEIGHT; ++y) {
-        for (int x = 0; x < GRID_WIDTH; ++x) {
-            cells[y][x].position = sf::Vector2f(x * CELL_SIZE, y * CELL_SIZE);
+    cells.resize(Config::GRID_HEIGHT, std::vector<Cell>(Config::GRID_WIDTH, { true, {0, 0}, sf::RectangleShape(sf::Vector2f(Config::CELL_SIZE, Config::CELL_SIZE)) }));
+    for (int y = 0; y < Config::GRID_HEIGHT; ++y) {
+        for (int x = 0; x < Config::GRID_WIDTH; ++x) {
+            cells[y][x].position = sf::Vector2f(x * Config::CELL_SIZE, y * Config::CELL_SIZE);
             cells[y][x].sprite.setPosition(cells[y][x].position);
             cells[y][x].sprite.setFillColor(sf::Color::Transparent);
             cells[y][x].sprite.setOutlineThickness(1);
@@ -22,10 +22,10 @@ void Grid::loadFromFile(const std::string& filename) {
         return;
     }
 
-    for (int y = 0; y < GRID_HEIGHT; ++y) {
+    for (int y = 0; y < Config::GRID_HEIGHT; ++y) {
         std::string line;
         if (!std::getline(file, line)) break;
-        for (int x = 0; x < GRID_WIDTH && x < line.size(); ++x) {
+        for (int x = 0; x < Config::GRID_WIDTH && x < line.size(); ++x) {
             cells[y][x].walkable = (line[x] == '0');
             if (!cells[y][x].walkable) {
                 cells[y][x].sprite.setFillColor(sf::Color::White);
@@ -35,8 +35,8 @@ void Grid::loadFromFile(const std::string& filename) {
 }
 
 void Grid::draw(sf::RenderWindow& window) {
-    for (int y = 0; y < GRID_HEIGHT; ++y) {
-        for (int x = 0; x < GRID_WIDTH; ++x) {
+    for (int y = 0; y < Config::GRID_HEIGHT; ++y) {
+        for (int x = 0; x < Config::GRID_WIDTH; ++x) {
             window.draw(cells[y][x].sprite);
         }
     }

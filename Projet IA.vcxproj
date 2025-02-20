@@ -34,6 +34,7 @@
     <ClInclude Include="src\entities\Enemy.hpp" />
     <ClInclude Include="src\entities\Entity.hpp" />
     <ClInclude Include="src\entities\Player.hpp" />
+    <ClInclude Include="src\game\Config.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
     <ClInclude Include="src\ia\goap\Action.hpp" />
     <ClInclude Include="src\ia\goap\GOAPAgent.hpp" />

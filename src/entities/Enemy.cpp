@@ -81,10 +81,10 @@ void Enemy::chase(Player& player, float deltaTime, Grid& grid) {
     static float pathfindingDelay = 0.5f;
 
     if (pathfindingClock.getElapsedTime().asSeconds() >= pathfindingDelay) {
-        Vector2i enemyCell(static_cast<int>(sprite.getPosition().x / CELL_SIZE),
-            static_cast<int>(sprite.getPosition().y / CELL_SIZE));
-        Vector2i playerCell(static_cast<int>(player.sprite.getPosition().x / CELL_SIZE),
-            static_cast<int>(player.sprite.getPosition().y / CELL_SIZE));
+        Vector2i enemyCell(static_cast<int>(sprite.getPosition().x / Config::CELL_SIZE),
+            static_cast<int>(sprite.getPosition().y / Config::CELL_SIZE));
+        Vector2i playerCell(static_cast<int>(player.sprite.getPosition().x / Config::CELL_SIZE),
+            static_cast<int>(player.sprite.getPosition().y / Config::CELL_SIZE));
 
         path = Pathfinding::findPath(grid, enemyCell, playerCell);
 
@@ -112,10 +112,10 @@ void Enemy::flee(Player& player, float deltaTime, Grid& grid) {
     if (distance < DETECTION_RADIUS) {
         if (distance > 0) {
             direction /= distance;
-            Vector2i enemyCell(static_cast<int>(sprite.getPosition().x / CELL_SIZE),
-                static_cast<int>(sprite.getPosition().y / CELL_SIZE));
-            Vector2i playerCell(static_cast<int>(player.sprite.getPosition().x / CELL_SIZE),
-                static_cast<int>(player.sprite.getPosition().y / CELL_SIZE));
+            Vector2i enemyCell(static_cast<int>(sprite.getPosition().x / Config::CELL_SIZE),
+                static_cast<int>(sprite.getPosition().y / Config::CELL_SIZE));
+            Vector2i playerCell(static_cast<int>(player.sprite.getPosition().x / Config::CELL_SIZE),
+                static_cast<int>(player.sprite.getPosition().y / Config::CELL_SIZE));
 
             if (pathfindingClock.getElapsedTime().asSeconds() >= pathfindingDelay) {
                 path = Pathfinding::findOppositePath(grid, enemyCell, playerCell);

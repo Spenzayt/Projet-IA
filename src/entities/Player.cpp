@@ -6,8 +6,8 @@
 Player::Player(float x, float y, int hp) : Entity(x, y, Color::Blue, hp), attackTimer(0.f) {}
 
 void Player::update(float deltaTime, Grid& grid, vector<Entity*> enemies) {
-    Vector2i currentCell(static_cast<int>(sprite.getPosition().x / CELL_SIZE),
-        static_cast<int>(sprite.getPosition().y / CELL_SIZE));
+    Vector2i currentCell(static_cast<int>(sprite.getPosition().x / Config::CELL_SIZE),
+        static_cast<int>(sprite.getPosition().y / Config::CELL_SIZE));
     Vector2i targetCell = currentCell;
 
     if (moveTimer >= moveDelay) {
@@ -16,10 +16,10 @@ void Player::update(float deltaTime, Grid& grid, vector<Entity*> enemies) {
         if (Keyboard::isKeyPressed(Keyboard::Q)) targetCell.x -= 1;
         if (Keyboard::isKeyPressed(Keyboard::D)) targetCell.x += 1;
 
-        Vector2f targetPosition(targetCell.x * CELL_SIZE, targetCell.y * CELL_SIZE);
+        Vector2f targetPosition(targetCell.x * Config::CELL_SIZE, targetCell.y * Config::CELL_SIZE);
 
         auto isWalkable = [&](int x, int y) {
-            return x >= 0 && x < GRID_WIDTH && y >= 0 && y < GRID_HEIGHT && grid.getCell(x, y).walkable;
+            return x >= 0 && x < Config::GRID_WIDTH && y >= 0 && y < Config::GRID_HEIGHT && grid.getCell(x, y).walkable;
             };
 
         if (isWalkable(targetCell.x, targetCell.y)) {

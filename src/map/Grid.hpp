@@ -4,13 +4,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "../game/Config.hpp"
 
 using namespace std;
 using namespace sf;
-
-const int GRID_WIDTH = 48;
-const int GRID_HEIGHT = 27;
-const int CELL_SIZE = 40;
 
 struct Cell {
     bool walkable;

@@ -51,7 +51,7 @@ vector<Vector2i> Pathfinding::findPath(Grid& grid, Vector2i start, Vector2i end)
         for (auto& dir : directions) {
             Vector2i neighborPos = current->position + dir;
 
-            if (neighborPos.x < 0 || neighborPos.x >= GRID_WIDTH || neighborPos.y < 0 || neighborPos.y >= GRID_HEIGHT)
+            if (neighborPos.x < 0 || neighborPos.x >= Config::GRID_WIDTH || neighborPos.y < 0 || neighborPos.y >= Config::GRID_HEIGHT)
                 continue;
             if (!grid.getCell(neighborPos.x, neighborPos.y).walkable)
                 continue;
@@ -97,8 +97,8 @@ vector<Vector2i> Pathfinding::findOppositePath(Grid& grid, Vector2i start, Vecto
     int distance = 5;
     Vector2i targetPos = start + direction * distance;
 
-    targetPos.x = clamp(targetPos.x, 0, GRID_WIDTH - 1);
-    targetPos.y = clamp(targetPos.y, 0, GRID_HEIGHT - 1);
+    targetPos.x = clamp(targetPos.x, 0, Config::GRID_WIDTH - 1);
+    targetPos.y = clamp(targetPos.y, 0, Config::GRID_HEIGHT - 1);
 
     return findPath(grid, start, targetPos);
 }

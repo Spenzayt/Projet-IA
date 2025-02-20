@@ -1,8 +1,5 @@
 #include "Game.hpp"
 
-const int WINDOW_WIDTH = 1920;
-const int WINDOW_HEIGHT = 1080;
-
 // Game Construtor
 Game::Game() : window(VideoMode::getDesktopMode(), "Projet IA", Style::Fullscreen), player(40*2, 40*24, 10) {
     window.setFramerateLimit(60);
