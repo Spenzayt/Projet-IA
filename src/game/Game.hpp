@@ -8,6 +8,8 @@
 #include "../map/Grid.hpp"
 #include <vector>
 #include <memory>
+#include <cstdlib>
+#include <ctime>
 
 class Game {
 public:

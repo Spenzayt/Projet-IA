@@ -12,8 +12,10 @@ Game::Game()
     grid.loadFromFile("src/script/output_map.txt");
 
     // Create enemies with their positions and health points
-    enemies.push_back(make_unique<Enemy>(40 * 4 + 5, 40 * 4 + 5, 10));
+    enemies.push_back(make_unique<Enemy>(40 * 4 + 5, 40 * 4 + 5, 100));
     enemies.push_back(make_unique<Enemy>(40 * 4 + 5, 40 * 22 + 5, 100));
+    enemies.push_back(make_unique<Enemy>(40 * 43 + 5, 40 * 4 + 5, 100));
+    enemies.push_back(make_unique<Enemy>(40 * 43 + 5, 40 * 22 + 5, 100));
 }
 
 // Game Destructor
