@@ -16,7 +16,6 @@ public:
     void attack(vector<Entity*> enemies);
     void update(float deltaTime, Grid& grid, vector<Entity*> enemies) override;
 
-    //Vector2f getPosition() const;
 };
 
 #endif // PLAYER_HPP

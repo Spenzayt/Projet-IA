@@ -19,7 +19,6 @@ public:
 
 	void update(Player& player, Grid& grid, float deltaTime);
 
-
 };
 
 

@@ -19,9 +19,8 @@ public:
     void detectPlayer(Grid& grid, Player& player);
     void returnPos(float deltaTime, Grid& grid, Player& player);
 
-
-    enum State {PATROL, CHASE, RETURN};
-    State currentState;
+    enum EnemyState { PATROL, CHASE, RETURN };
+    EnemyState currentState;
 
 private:
 
@@ -30,7 +29,7 @@ private:
     void patrol();
     void flee(Player& player, float deltaTime, Grid& grid);
 
-    //State state;
+    State state;
 };
 
 #endif // ENEMY_HPP
