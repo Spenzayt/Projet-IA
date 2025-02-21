@@ -48,7 +48,6 @@ void Enemy::update(float deltaTime, Grid& grid, std::vector<Entity*> players) {
 
 void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid) {
 
-
     detectPlayer(grid, _p);
     returnPos(deltaTime, grid, _p);
 
@@ -62,7 +61,7 @@ void Enemy::FSM(Player& _p, vector<Entity*> players, float deltaTime, Grid& grid
         break;
 
     case RETURN:
-        cout << "change d'état" << endl;
+        cout << "change d'Ã©tat" << endl;
         break;
     }
 
